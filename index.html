@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Dynamic Payment Form</title>
+  <title>Complete Registration System</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"/>
   <style>
     * {
@@ -46,8 +46,14 @@
       border-radius: 6px;
       outline: none;
     }
-    .form-group input[type="file"] {
-      padding: 7px;
+    .form-group input.error {
+      border-color: red;
+    }
+    .error-message {
+      color: red;
+      font-size: 12px;
+      margin-top: 5px;
+      display: none;
     }
     .btn {
       width: 100%;
@@ -64,206 +70,141 @@
     .btn:hover {
       background-color: #07001f;
     }
-    .small-btn {
-      width: auto;
-      background-color: #007bff;
-      color: white;
-      border: none;
-      padding: 6px 12px;
-      font-size: 14px;
-      border-radius: 5px;
-      cursor: pointer;
-      margin-top: 5px;
+    .btn.loading {
+      position: relative;
+      pointer-events: none;
     }
-    .payment-options {
-      display: flex;
-      gap: 10px;
-      margin-top: 10px;
+    .btn.loading:after {
+      content: "";
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 20px;
+      height: 20px;
+      margin: -10px 0 0 -10px;
+      border: 2px solid rgba(255,255,255,0.3);
+      border-radius: 50%;
+      border-top-color: #fff;
+      animation: spin 1s ease-in-out infinite;
     }
-    .payment-options button {
-      flex: 1;
+    @keyframes spin {
+      to { transform: rotate(360deg); }
     }
     .hidden {
       display: none;
     }
-  </style>
-</head>
-<body>
-
-  <div class="container">
-    <h2>Register for Earning Plan</h2>
-    <form id="dynamicForm">
-
-      <div class="form-group">
-        <label for="username">Username</label>
-        <input type="text" id="username" placeholder="Enter your name" required>
-      </div>
-
-      <div class="form-group">
-        <label for="email">Email (Gmail)</label>
-        <input type="email" id="email" placeholder="Enter your Gmail" required>
-      </div>
-
-      <div class="form-group">
-        <label for="pass">Password</label>
-        <input type="password" id="pass" placeholder="Create password" required>
-      </div>
-```html
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Dynamic Payment Form</title>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"/>
-  <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-      font-family: "Poppins", sans-serif;
-    }
-    body {
-      background: linear-gradient(to right, #c9d6ff, #e2e2e2);
-      padding: 40px 0;
-    }
-    .container {
-      width: 90%;
-      max-width: 500px;
-      background: white;
-      margin: auto;
-      padding: 2rem;
-      border-radius: 10px;
-      box-shadow: 0 15px 25px rgba(0,0,0,0.2);
-    }
-    h2 {
-      text-align: center;
-      margin-bottom: 20px;
-      color: #333;
-    }
-    .form-group {
+    .success-message {
+      background-color: #d4edda;
+      color: #155724;
+      padding: 10px;
+      border-radius: 5px;
       margin-bottom: 15px;
-    }
-    .form-group label {
-      display: block;
-      margin-bottom: 5px;
-      font-weight: 600;
-    }
-    .form-group input, .form-group select, .form-group button {
-      width: 100%;
-      padding: 10px 12px;
-      font-size: 15px;
-      border: 1px solid #ccc;
-      border-radius: 6px;
-      outline: none;
-    }
-    .form-group input[type="file"] {
-      padding: 7px;
-    }
-    .btn {
-      width: 100%;
-      background-color: rgb(125,125,235);
-      color: white;
-      padding: 12px;
-      border: none;
-      font-size: 16px;
-      font-weight: bold;
-      border-radius: 6px;
-      cursor: pointer;
-      transition: background 0.3s ease;
-    }
-    .btn:hover {
-      background-color: #07001f;
-    }
-    .small-btn {
-      width: auto;
-      background-color: #007bff;
-      color: white;
-      border: none;
-      padding: 6px 12px;
-      font-size: 14px;
-      border-radius: 5px;
-      cursor: pointer;
-      margin-top: 5px;
-    }
-    .payment-options {
-      display: flex;
-      gap: 10px;
-      margin-top: 10px;
-    }
-    .payment-options button {
-      flex: 1;
-    }
-    .hidden {
-      display: none;
+      text-align: center;
     }
   </style>
 </head>
 <body>
 
   <div class="container">
-    <h2>Register for Earning Plan</h2>
-    <form id="dynamicForm">
-
-      <div class="form-group">
-        <label for="username">Username</label>
-        <input type="text" id="username" placeholder="Enter your name" required>
-      </div>
-
-      <div class="form-group">
-        <label for="email">Email (Gmail)</label>
-        <input type="email" id="email" placeholder="Enter your Gmail" required>
-      </div>
-
-      <div class="form-group">
-        <label for="pass">Password</label>
-        <input type="password" id="pass" placeholder="Create password" required>
-      </div>
-
-      <div class="form-group">
-        <label for="confirmPass">Confirm Password</label>
-        <input type="password" id="confirmPass" placeholder="Re-enter password" required>
-      </div>
-
-      <div class="form-group">
-        <label for="yourAccount">Your Account</label>
-        <button type="button" class="small-btn" onclick="togglePaymentOptions()">Select Payment Method</button>
-
-        <div id="paymentOptions" class="payment-options hidden">
-          <button type="button" onclick="selectMethod('Easypaisa')">Easypaisa</button>
-          <button type="button" onclick="selectMethod('JazzCash')">JazzCash</button>
-        </div>
-      </div>
-
-      <div id="accountFields" class="hidden">
+    <h2>Complete Registration</h2>
+    <div id="messageContainer"></div>
+    
+    <form id="registrationForm">
+      <!-- Step 1: Basic Information -->
+      <div id="step1">
         <div class="form-group">
-          <label for="accountNumber">Account Number</label>
-          <input type="text" id="accountNumber" placeholder="03XXXXXXXXX" required>
+          <label for="username">Username (Max 12 letters)</label>
+          <input type="text" id="username" placeholder="Enter your name" maxlength="12" required>
+          <div class="error-message" id="usernameError">Username must be 12 letters or less</div>
         </div>
 
         <div class="form-group">
-          <label for="accountName">Account Holder Name</label>
-          <input type="text" id="accountName" placeholder="e.g. Ali Khan" required>
+          <label for="email">Email (Gmail)</label>
+          <input type="email" id="email" placeholder="Enter your Gmail" required>
+          <div class="error-message" id="emailError">Please enter a valid Gmail address</div>
+        </div>
+
+        <div class="form-group">
+          <button type="button" class="btn" id="sendVerificationBtn">Send Verification Email</button>
         </div>
       </div>
 
-      <div id="screenshotField" class="form-group hidden">
-        <label>Upload Screenshot</label>
-        <input type="file" id="screenshot" accept="image/*" required>
+      <!-- Step 2: Verification -->
+      <div id="step2" class="hidden">
+        <div class="success-message">
+          📩 Verification email has been sent<br>
+          Please check your Gmail and click the link to verify your account.<br>
+          If you don't see the email, check your Spam or Promotions folder.
+        </div>
       </div>
 
-      <div id="submitBtn" class="form-group hidden">
-        <button type="submit" class="btn">Submit</button>
+      <!-- Step 3: Password -->
+      <div id="step3" class="hidden">
+        <div class="form-group">
+          <label for="password">Password (Max 10 characters)</label>
+          <input type="password" id="password" placeholder="Create password" maxlength="10" required>
+          <div class="error-message" id="passwordError">Password must be 10 characters or less</div>
+        </div>
+
+        <div class="form-group">
+          <label for="confirmPassword">Confirm Password</label>
+          <input type="password" id="confirmPassword" placeholder="Re-enter password" required>
+          <div class="error-message" id="confirmPasswordError">Passwords do not match</div>
+        </div>
+
+        <div class="form-group">
+          <label for="whatsapp">WhatsApp Number (03XXXXXXXXX)</label>
+          <input type="text" id="whatsapp" placeholder="03XXXXXXXXX" required>
+          <div class="error-message" id="whatsappError">Invalid WhatsApp number (must start with 03 and 11 digits)</div>
+        </div>
+
+        <div class="form-group">
+          <button type="button" class="btn" id="proceedToPlanBtn">Proceed to Plan Selection</button>
+        </div>
       </div>
 
+      <!-- Step 4: Plan Selection -->
+      <div id="step4" class="hidden">
+        <div class="form-group">
+          <label for="plan">Select Plan</label>
+          <select id="plan" required>
+            <option value="">-- Select Plan --</option>
+            <option value="1000">Basic Plan (Rs. 1000)</option>
+            <option value="1500">Standard Plan (Rs. 1500)</option>
+            <option value="2000">Premium Plan (Rs. 2000)</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="screenshot">Upload Payment Screenshot</label>
+          <input type="file" id="screenshot" accept="image/*" required>
+          <div class="error-message" id="screenshotError">Please upload payment screenshot</div>
+        </div>
+
+        <div class="form-group">
+          <button type="submit" class="btn" id="submitBtn">Complete Registration</button>
+        </div>
+      </div>
     </form>
   </div>
 
   <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/10.11.1/firebase-app.js";
-    import { getAuth, createUserWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.11.1/firebase-auth.js";
-    import { getFirestore, collection, addDoc } from "https://www.gstatic.com/firebasejs/10.11.1/firebase-firestore.js";
+    import { 
+      getAuth, 
+      createUserWithEmailAndPassword, 
+      sendEmailVerification 
+    } from "https://www.gstatic.com/firebasejs/10.11.1/firebase-auth.js";
+    import { 
+      getFirestore, 
+      collection, 
+      addDoc,
+      query,
+      where,
+      getDocs
+    } from "https://www.gstatic.com/firebasejs/10.11.1/firebase-firestore.js";
 
+    // Firebase Configuration
     const firebaseConfig = {
       apiKey: "AIzaSyCOTwS-H0NQmj6-jDNAlFzu4Yv81f86tTU",
       authDomain: "islamic-quiz-fe72f.firebaseapp.com",
@@ -274,55 +215,248 @@
       appId: "1:523541510921:web:b78005ef3bc1f1a14a31d8"
     };
 
+    // Initialize Firebase
     const app = initializeApp(firebaseConfig);
     const auth = getAuth(app);
     const db = getFirestore(app);
 
-    function togglePaymentOptions() {
-      document.getElementById("paymentOptions").classList.toggle("hidden");
+    // DOM Elements
+    const registrationForm = document.getElementById('registrationForm');
+    const step1 = document.getElementById('step1');
+    const step2 = document.getElementById('step2');
+    const step3 = document.getElementById('step3');
+    const step4 = document.getElementById('step4');
+    const messageContainer = document.getElementById('messageContainer');
+    const sendVerificationBtn = document.getElementById('sendVerificationBtn');
+    const proceedToPlanBtn = document.getElementById('proceedToPlanBtn');
+    const submitBtn = document.getElementById('submitBtn');
+
+    // Error Elements
+    const usernameError = document.getElementById('usernameError');
+    const emailError = document.getElementById('emailError');
+    const passwordError = document.getElementById('passwordError');
+    const confirmPasswordError = document.getElementById('confirmPasswordError');
+    const whatsappError = document.getElementById('whatsappError');
+    const screenshotError = document.getElementById('screenshotError');
+
+    // Current Step
+    let currentStep = 1;
+
+    // Show error message
+    function showError(input, errorElement, message) {
+      input.classList.add('error');
+      errorElement.textContent = message;
+      errorElement.style.display = 'block';
     }
 
-    function selectMethod(method) {
-      document.getElementById("paymentOptions").classList.add("hidden");
-      document.getElementById("accountFields").classList.remove("hidden");
-      document.getElementById("screenshotField").classList.remove("hidden");
-      document.getElementById("submitBtn").classList.remove("hidden");
+    // Hide error message
+    function hideError(input, errorElement) {
+      input.classList.remove('error');
+      errorElement.style.display = 'none';
     }
 
-    document.getElementById("dynamicForm").addEventListener("submit", async (e) => {
-      e.preventDefault();
+    // Show success message
+    function showSuccess(message) {
+      messageContainer.innerHTML = `<div class="success-message">${message}</div>`;
+    }
+
+    // Show loading state
+    function setLoading(button, isLoading) {
+      if (isLoading) {
+        button.classList.add('loading');
+        button.disabled = true;
+      } else {
+        button.classList.remove('loading');
+        button.disabled = false;
+      }
+    }
+
+    // Validate username
+    function validateUsername() {
+      const username = document.getElementById('username').value;
+      if (username.length > 12) {
+        showError(document.getElementById('username'), usernameError, 'Username must be 12 letters or less');
+        return false;
+      }
+      hideError(document.getElementById('username'), usernameError);
+      return true;
+    }
+
+    // Validate email
+    function validateEmail() {
+      const email = document.getElementById('email').value;
+      if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+        showError(document.getElementById('email'), emailError, 'Please enter a valid email address');
+        return false;
+      }
+      hideError(document.getElementById('email'), emailError);
+      return true;
+    }
+
+    // Validate password
+    function validatePassword() {
+      const password = document.getElementById('password').value;
+      if (password.length > 10) {
+        showError(document.getElementById('password'), passwordError, 'Password must be 10 characters or less');
+        return false;
+      }
+      hideError(document.getElementById('password'), passwordError);
+      return true;
+    }
+
+    // Validate confirm password
+    function validateConfirmPassword() {
+      const password = document.getElementById('password').value;
+      const confirmPassword = document.getElementById('confirmPassword').value;
       
-      const email = document.getElementById("email").value;
-      const password = document.getElementById("pass").value;
-      const username = document.getElementById("username").value;
-      const accountNumber = document.getElementById("accountNumber").value;
-      const accountName = document.getElementById("accountName").value;
-      const paymentMethod = document.querySelector(".payment-options button:focus")?.textContent || "Easypaisa";
-      const screenshot = document.getElementById("screenshot").files[0];
+      if (password !== confirmPassword) {
+        showError(document.getElementById('confirmPassword'), confirmPasswordError, 'Passwords do not match');
+        return false;
+      }
+      hideError(document.getElementById('confirmPassword'), confirmPasswordError);
+      return true;
+    }
+
+    // Validate WhatsApp number
+    function validateWhatsApp() {
+      const whatsapp = document.getElementById('whatsapp').value;
+      if (!/^03\d{9}$/.test(whatsapp)) {
+        showError(document.getElementById('whatsapp'), whatsappError, 'Invalid WhatsApp number (must start with 03 and 11 digits)');
+        return false;
+      }
+      hideError(document.getElementById('whatsapp'), whatsappError);
+      return true;
+    }
+
+    // Send verification email
+    sendVerificationBtn.addEventListener('click', async () => {
+      if (!validateUsername() || !validateEmail()) return;
+
+      const email = document.getElementById('email').value;
+      const username = document.getElementById('username').value;
 
       try {
+        setLoading(sendVerificationBtn, true);
+        
+        // Check if username already exists
+        const usersRef = collection(db, "users");
+        const q = query(usersRef, where("username", "==", username));
+        const querySnapshot = await getDocs(q);
+        
+        if (!querySnapshot.empty) {
+          showError(document.getElementById('username'), usernameError, 'This username is already taken');
+          setLoading(sendVerificationBtn, false);
+          return;
+        }
+
+        // Create temporary user for verification
+        const userCredential = await createUserWithEmailAndPassword(auth, email, "temporaryPassword123");
+        await sendEmailVerification(userCredential.user);
+        
+        // Move to next step
+        step1.classList.add('hidden');
+        step2.classList.remove('hidden');
+        currentStep = 2;
+        
+        showSuccess('📩 Verification email has been sent. Please check your inbox.');
+      } catch (error) {
+        let errorMessage = 'An error occurred';
+        
+        if (error.code === 'auth/email-already-in-use') {
+          errorMessage = 'This email is already registered';
+          showError(document.getElementById('email'), emailError, errorMessage);
+        } else {
+          errorMessage = error.message;
+        }
+        
+        showError(document.getElementById('email'), emailError, errorMessage);
+      } finally {
+        setLoading(sendVerificationBtn, false);
+      }
+    });
+
+    // Proceed to plan selection
+    proceedToPlanBtn.addEventListener('click', () => {
+      if (!validatePassword() || !validateConfirmPassword() || !validateWhatsApp()) return;
+      
+      step3.classList.add('hidden');
+      step4.classList.remove('hidden');
+      currentStep = 4;
+    });
+
+    // Form submission
+    registrationForm.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      
+      if (!validateUsername() || !validateEmail() || !validatePassword() || 
+          !validateConfirmPassword() || !validateWhatsApp()) {
+        return;
+      }
+
+      const email = document.getElementById('email').value;
+      const password = document.getElementById('password').value;
+      const username = document.getElementById('username').value;
+      const whatsapp = document.getElementById('whatsapp').value;
+      const plan = document.getElementById('plan').value;
+      const screenshot = document.getElementById('screenshot').files[0];
+
+      if (!screenshot) {
+        showError(document.getElementById('screenshot'), screenshotError, 'Please upload payment screenshot');
+        return;
+      }
+
+      try {
+        setLoading(submitBtn, true);
+        
+        // Create user with actual password
         const userCredential = await createUserWithEmailAndPassword(auth, email, password);
         const user = userCredential.user;
 
+        // Save user data to Firestore
         await addDoc(collection(db, "users"), {
           uid: user.uid,
           username,
           email,
-          accountNumber,
-          accountName,
-          paymentMethod,
-          createdAt: new Date(),
+          whatsapp,
+          plan,
           status: "pending",
+          registrationDate: new Date(),
           screenshot: screenshot.name
         });
 
-        alert("Registration successful! Waiting for admin approval.");
-        window.location.href = "pending-approval.html";
+        // Show success message
+        showSuccess(`
+          ✅ Your registration has been completed<br>
+          Your account will be activated after admin approval<br>
+          Please wait, you will be notified shortly
+        `);
+
+        // Reset form
+        registrationForm.reset();
+        step4.classList.add('hidden');
+        step1.classList.remove('hidden');
+        currentStep = 1;
       } catch (error) {
-        alert("Error: " + error.message);
+        let errorMessage = 'Registration failed';
+        
+        if (error.code === 'auth/email-already-in-use') {
+          errorMessage = 'This email is already registered';
+        } else if (error.code === 'auth/weak-password') {
+          errorMessage = 'Password should be at least 6 characters';
+        }
+        
+        showSuccess(`❌ ${errorMessage}`);
+      } finally {
+        setLoading(submitBtn, false);
       }
     });
-  </script>
 
+    // Real-time validation
+    document.getElementById('username').addEventListener('input', validateUsername);
+    document.getElementById('email').addEventListener('input', validateEmail);
+    document.getElementById('password').addEventListener('input', validatePassword);
+    document.getElementById('confirmPassword').addEventListener('input', validateConfirmPassword);
+    document.getElementById('whatsapp').addEventListener('input', validateWhatsApp);
+  </script>
 </body>
-</html>
+  </html>
