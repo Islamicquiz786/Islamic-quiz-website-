@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Complete Registration System</title>
+  <title>Complete Registration</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"/>
   <style>
     * {
@@ -101,6 +101,23 @@
       margin-bottom: 15px;
       text-align: center;
     }
+    .payment-options {
+      display: flex;
+      gap: 10px;
+      margin-top: 10px;
+    }
+    .payment-options button {
+      flex: 1;
+      padding: 8px;
+      background-color: #f0f0f0;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    .payment-options button.active {
+      background-color: #007bff;
+      color: white;
+    }
   </style>
 </head>
 <body>
@@ -118,28 +135,6 @@
           <div class="error-message" id="usernameError">Username must be 12 letters or less</div>
         </div>
 
-        <div class="form-group">
-          <label for="email">Email (Gmail)</label>
-          <input type="email" id="email" placeholder="Enter your Gmail" required>
-          <div class="error-message" id="emailError">Please enter a valid Gmail address</div>
-        </div>
-
-        <div class="form-group">
-          <button type="button" class="btn" id="sendVerificationBtn">Send Verification Email</button>
-        </div>
-      </div>
-
-      <!-- Step 2: Verification -->
-      <div id="step2" class="hidden">
-        <div class="success-message">
-          📩 Verification email has been sent<br>
-          Please check your Gmail and click the link to verify your account.<br>
-          If you don't see the email, check your Spam or Promotions folder.
-        </div>
-      </div>
-
-      <!-- Step 3: Password -->
-      <div id="step3" class="hidden">
         <div class="form-group">
           <label for="password">Password (Max 10 characters)</label>
           <input type="password" id="password" placeholder="Create password" maxlength="10" required>
@@ -159,30 +154,46 @@
         </div>
 
         <div class="form-group">
-          <button type="button" class="btn" id="proceedToPlanBtn">Proceed to Plan Selection</button>
+          <label>Your Account</label>
+          <div class="payment-options">
+            <button type="button" onclick="selectPaymentMethod('Easypaisa')">Easypaisa</button>
+            <button type="button" onclick="selectPaymentMethod('JazzCash')">JazzCash</button>
+          </div>
+          <input type="hidden" id="paymentMethod" required>
         </div>
-      </div>
 
-      <!-- Step 4: Plan Selection -->
-      <div id="step4" class="hidden">
         <div class="form-group">
-          <label for="plan">Select Plan</label>
-          <select id="plan" required>
-            <option value="">-- Select Plan --</option>
-            <option value="1000">Basic Plan (Rs. 1000)</option>
-            <option value="1500">Standard Plan (Rs. 1500)</option>
-            <option value="2000">Premium Plan (Rs. 2000)</option>
-          </select>
+          <label for="accountNumber">Account Number</label>
+          <input type="text" id="accountNumber" placeholder="03XXXXXXXXX" required>
+        </div>
+
+        <div class="form-group">
+          <label for="accountName">Account Holder Name</label>
+          <input type="text" id="accountName" placeholder="e.g. Ali Khan" required>
         </div>
 
         <div class="form-group">
           <label for="screenshot">Upload Payment Screenshot</label>
           <input type="file" id="screenshot" accept="image/*" required>
-          <div class="error-message" id="screenshotError">Please upload payment screenshot</div>
         </div>
 
         <div class="form-group">
-          <button type="submit" class="btn" id="submitBtn">Complete Registration</button>
+          <label for="email">Email (Gmail)</label>
+          <input type="email" id="email" placeholder="Enter your Gmail" required>
+          <div class="error-message" id="emailError">Please enter a valid Gmail address</div>
+        </div>
+
+        <div class="form-group">
+          <button type="button" class="btn" id="submitBtn">Complete Registration</button>
+        </div>
+      </div>
+
+      <!-- Step 2: Verification Message -->
+      <div id="step2" class="hidden">
+        <div class="success-message">
+          ✅ Your registration has been completed<br>
+          Your account will be activated after admin approval<br>
+          Please wait, you will be notified shortly
         </div>
       </div>
     </form>
@@ -224,12 +235,8 @@
     const registrationForm = document.getElementById('registrationForm');
     const step1 = document.getElementById('step1');
     const step2 = document.getElementById('step2');
-    const step3 = document.getElementById('step3');
-    const step4 = document.getElementById('step4');
-    const messageContainer = document.getElementById('messageContainer');
-    const sendVerificationBtn = document.getElementById('sendVerificationBtn');
-    const proceedToPlanBtn = document.getElementById('proceedToPlanBtn');
     const submitBtn = document.getElementById('submitBtn');
+    const messageContainer = document.getElementById('messageContainer');
 
     // Error Elements
     const usernameError = document.getElementById('usernameError');
@@ -237,10 +244,6 @@
     const passwordError = document.getElementById('passwordError');
     const confirmPasswordError = document.getElementById('confirmPasswordError');
     const whatsappError = document.getElementById('whatsappError');
-    const screenshotError = document.getElementById('screenshotError');
-
-    // Current Step
-    let currentStep = 1;
 
     // Show error message
     function showError(input, errorElement, message) {
@@ -269,6 +272,18 @@
         button.classList.remove('loading');
         button.disabled = false;
       }
+    }
+
+    // Select payment method
+    function selectPaymentMethod(method) {
+      document.getElementById('paymentMethod').value = method;
+      const buttons = document.querySelectorAll('.payment-options button');
+      buttons.forEach(btn => {
+        btn.classList.remove('active');
+        if (btn.textContent === method) {
+          btn.classList.add('active');
+        }
+      });
     }
 
     // Validate username
@@ -328,15 +343,24 @@
       return true;
     }
 
-    // Send verification email
-    sendVerificationBtn.addEventListener('click', async () => {
-      if (!validateUsername() || !validateEmail()) return;
+    // Form submission
+    submitBtn.addEventListener('click', async () => {
+      if (!validateUsername() || !validatePassword() || 
+          !validateConfirmPassword() || !validateWhatsApp() || !validateEmail()) {
+        return;
+      }
 
       const email = document.getElementById('email').value;
+      const password = document.getElementById('password').value;
       const username = document.getElementById('username').value;
+      const whatsapp = document.getElementById('whatsapp').value;
+      const paymentMethod = document.getElementById('paymentMethod').value;
+      const accountNumber = document.getElementById('accountNumber').value;
+      const accountName = document.getElementById('accountName').value;
+      const screenshot = document.getElementById('screenshot').files[0];
 
       try {
-        setLoading(sendVerificationBtn, true);
+        setLoading(submitBtn, true);
         
         // Check if username already exists
         const usersRef = collection(db, "users");
@@ -345,72 +369,16 @@
         
         if (!querySnapshot.empty) {
           showError(document.getElementById('username'), usernameError, 'This username is already taken');
-          setLoading(sendVerificationBtn, false);
+          setLoading(submitBtn, false);
           return;
         }
 
-        // Create temporary user for verification
-        const userCredential = await createUserWithEmailAndPassword(auth, email, "temporaryPassword123");
-        await sendEmailVerification(userCredential.user);
-        
-        // Move to next step
-        step1.classList.add('hidden');
-        step2.classList.remove('hidden');
-        currentStep = 2;
-        
-        showSuccess('📩 Verification email has been sent. Please check your inbox.');
-      } catch (error) {
-        let errorMessage = 'An error occurred';
-        
-        if (error.code === 'auth/email-already-in-use') {
-          errorMessage = 'This email is already registered';
-          showError(document.getElementById('email'), emailError, errorMessage);
-        } else {
-          errorMessage = error.message;
-        }
-        
-        showError(document.getElementById('email'), emailError, errorMessage);
-      } finally {
-        setLoading(sendVerificationBtn, false);
-      }
-    });
-
-    // Proceed to plan selection
-    proceedToPlanBtn.addEventListener('click', () => {
-      if (!validatePassword() || !validateConfirmPassword() || !validateWhatsApp()) return;
-      
-      step3.classList.add('hidden');
-      step4.classList.remove('hidden');
-      currentStep = 4;
-    });
-
-    // Form submission
-    registrationForm.addEventListener('submit', async (e) => {
-      e.preventDefault();
-      
-      if (!validateUsername() || !validateEmail() || !validatePassword() || 
-          !validateConfirmPassword() || !validateWhatsApp()) {
-        return;
-      }
-
-      const email = document.getElementById('email').value;
-      const password = document.getElementById('password').value;
-      const username = document.getElementById('username').value;
-      const whatsapp = document.getElementById('whatsapp').value;
-      const plan = document.getElementById('plan').value;
-      const screenshot = document.getElementById('screenshot').files[0];
-
-      if (!screenshot) {
-        showError(document.getElementById('screenshot'), screenshotError, 'Please upload payment screenshot');
-        return;
-      }
-
-      try {
-        setLoading(submitBtn, true);
-        
-        // Create user with actual password
+        // Create user
         const userCredential = await createUserWithEmailAndPassword(auth, email, password);
         const user = userCredential.user;
+
+        // Send verification email
+        await sendEmailVerification(user);
 
         // Save user data to Firestore
         await addDoc(collection(db, "users"), {
@@ -418,31 +386,28 @@
           username,
           email,
           whatsapp,
-          plan,
+          paymentMethod,
+          accountNumber,
+          accountName,
           status: "pending",
           registrationDate: new Date(),
-          screenshot: screenshot.name
+          screenshot: screenshot.name,
+          emailVerified: false
         });
 
-        // Show success message
-        showSuccess(`
-          ✅ Your registration has been completed<br>
-          Your account will be activated after admin approval<br>
-          Please wait, you will be notified shortly
-        `);
-
-        // Reset form
-        registrationForm.reset();
-        step4.classList.add('hidden');
-        step1.classList.remove('hidden');
-        currentStep = 1;
+        // Show success message and hide form
+        step1.classList.add('hidden');
+        step2.classList.remove('hidden');
+        
       } catch (error) {
         let errorMessage = 'Registration failed';
         
         if (error.code === 'auth/email-already-in-use') {
           errorMessage = 'This email is already registered';
+          showError(document.getElementById('email'), emailError, errorMessage);
         } else if (error.code === 'auth/weak-password') {
           errorMessage = 'Password should be at least 6 characters';
+          showError(document.getElementById('password'), passwordError, errorMessage);
         }
         
         showSuccess(`❌ ${errorMessage}`);
