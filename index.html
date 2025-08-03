@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Dynamic Payment Form</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"/>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: "Poppins", sans-serif;
+    }
+    body {
+      background: linear-gradient(to right, #c9d6ff, #e2e2e2);
+      padding: 40px 0;
+    }
+    .container {
+      width: 90%;
+      max-width: 500px;
+      background: white;
+      margin: auto;
+      padding: 2rem;
+      border-radius: 10px;
+      box-shadow: 0 15px 25px rgba(0,0,0,0.2);
+    }
+    h2 {
+      text-align: center;
+      margin-bottom: 20px;
+      color: #333;
+    }
+    .form-group {
+      margin-bottom: 15px;
+    }
+    .form-group label {
+      display: block;
+      margin-bottom: 5px;
+      font-weight: 600;
+    }
+    .form-group input, .form-group select, .form-group button {
+      width: 100%;
+      padding: 10px 12px;
+      font-size: 15px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      outline: none;
+    }
+    .form-group input[type="file"] {
+      padding: 7px;
+    }
+    .btn {
+      width: 100%;
+      background-color: rgb(125,125,235);
+      color: white;
+      padding: 12px;
+      border: none;
+      font-size: 16px;
+      font-weight: bold;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+    .btn:hover {
+      background-color: #07001f;
+    }
+    .small-btn {
+      width: auto;
+      background-color: #007bff;
+      color: white;
+      border: none;
+      padding: 6px 12px;
+      font-size: 14px;
+      border-radius: 5px;
+      cursor: pointer;
+      margin-top: 5px;
+    }
+    .payment-options {
+      display: flex;
+      gap: 10px;
+      margin-top: 10px;
+    }
+    .payment-options button {
+      flex: 1;
+    }
+    .hidden {
+      display: none;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <h2>Register for Earning Plan</h2>
+    <form id="dynamicForm">
+
+      <div class="form-group">
+        <label for="username">Username</label>
+        <input type="text" id="username" placeholder="Enter your name" required>
+      </div>
+
+      <div class="form-group">
+        <label for="email">Email (Gmail)</label>
+        <input type="email" id="email" placeholder="Enter your Gmail" required>
+      </div>
+
+      <div class="form-group">
+        <label for="pass">Password</label>
+        <input type="password" id="pass" placeholder="Create password" required>
+      </div>
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Dynamic Payment Form</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"/>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: "Poppins", sans-serif;
+    }
+    body {
+      background: linear-gradient(to right, #c9d6ff, #e2e2e2);
+      padding: 40px 0;
+    }
+    .container {
+      width: 90%;
+      max-width: 500px;
+      background: white;
+      margin: auto;
+      padding: 2rem;
+      border-radius: 10px;
+      box-shadow: 0 15px 25px rgba(0,0,0,0.2);
+    }
+    h2 {
+      text-align: center;
+      margin-bottom: 20px;
+      color: #333;
+    }
+    .form-group {
+      margin-bottom: 15px;
+    }
+    .form-group label {
+      display: block;
+      margin-bottom: 5px;
+      font-weight: 600;
+    }
+    .form-group input, .form-group select, .form-group button {
+      width: 100%;
+      padding: 10px 12px;
+      font-size: 15px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      outline: none;
+    }
+    .form-group input[type="file"] {
+      padding: 7px;
+    }
+    .btn {
+      width: 100%;
+      background-color: rgb(125,125,235);
+      color: white;
+      padding: 12px;
+      border: none;
+      font-size: 16px;
+      font-weight: bold;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+    .btn:hover {
+      background-color: #07001f;
+    }
+    .small-btn {
+      width: auto;
+      background-color: #007bff;
+      color: white;
+      border: none;
+      padding: 6px 12px;
+      font-size: 14px;
+      border-radius: 5px;
+      cursor: pointer;
+      margin-top: 5px;
+    }
+    .payment-options {
+      display: flex;
+      gap: 10px;
+      margin-top: 10px;
+    }
+    .payment-options button {
+      flex: 1;
+    }
+    .hidden {
+      display: none;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <h2>Register for Earning Plan</h2>
+    <form id="dynamicForm">
+
+      <div class="form-group">
+        <label for="username">Username</label>
+        <input type="text" id="username" placeholder="Enter your name" required>
+      </div>
+
+      <div class="form-group">
+        <label for="email">Email (Gmail)</label>
+        <input type="email" id="email" placeholder="Enter your Gmail" required>
+      </div>
+
+      <div class="form-group">
+        <label for="pass">Password</label>
+        <input type="password" id="pass" placeholder="Create password" required>
+      </div>
+
+      <div class="form-group">
+        <label for="confirmPass">Confirm Password</label>
+        <input type="password" id="confirmPass" placeholder="Re-enter password" required>
+      </div>
+
+      <div class="form-group">
+        <label for="yourAccount">Your Account</label>
+        <button type="button" class="small-btn" onclick="togglePaymentOptions()">Select Payment Method</button>
+
+        <div id="paymentOptions" class="payment-options hidden">
+          <button type="button" onclick="selectMethod('Easypaisa')">Easypaisa</button>
+          <button type="button" onclick="selectMethod('JazzCash')">JazzCash</button>
+        </div>
+      </div>
+
+      <div id="accountFields" class="hidden">
+        <div class="form-group">
+          <label for="accountNumber">Account Number</label>
+          <input type="text" id="accountNumber" placeholder="03XXXXXXXXX" required>
+        </div>
+
+        <div class="form-group">
+          <label for="accountName">Account Holder Name</label>
+          <input type="text" id="accountName" placeholder="e.g. Ali Khan" required>
+        </div>
+      </div>
+
+      <div id="screenshotField" class="form-group hidden">
+        <label>Upload Screenshot</label>
+        <input type="file" id="screenshot" accept="image/*" required>
+      </div>
+
+      <div id="submitBtn" class="form-group hidden">
+        <button type="submit" class="btn">Submit</button>
+      </div>
+
+    </form>
+  </div>
+
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.11.1/firebase-app.js";
+    import { getAuth, createUserWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.11.1/firebase-auth.js";
+    import { getFirestore, collection, addDoc } from "https://www.gstatic.com/firebasejs/10.11.1/firebase-firestore.js";
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyCOTwS-H0NQmj6-jDNAlFzu4Yv81f86tTU",
+      authDomain: "islamic-quiz-fe72f.firebaseapp.com",
+      databaseURL: "https://islamic-quiz-fe72f-default-rtdb.firebaseio.com",
+      projectId: "islamic-quiz-fe72f",
+      storageBucket: "islamic-quiz-fe72f.firebasestorage.app",
+      messagingSenderId: "523541510921",
+      appId: "1:523541510921:web:b78005ef3bc1f1a14a31d8"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+    const db = getFirestore(app);
+
+    function togglePaymentOptions() {
+      document.getElementById("paymentOptions").classList.toggle("hidden");
+    }
+
+    function selectMethod(method) {
+      document.getElementById("paymentOptions").classList.add("hidden");
+      document.getElementById("accountFields").classList.remove("hidden");
+      document.getElementById("screenshotField").classList.remove("hidden");
+      document.getElementById("submitBtn").classList.remove("hidden");
+    }
+
+    document.getElementById("dynamicForm").addEventListener("submit", async (e) => {
+      e.preventDefault();
+      
+      const email = document.getElementById("email").value;
+      const password = document.getElementById("pass").value;
+      const username = document.getElementById("username").value;
+      const accountNumber = document.getElementById("accountNumber").value;
+      const accountName = document.getElementById("accountName").value;
+      const paymentMethod = document.querySelector(".payment-options button:focus")?.textContent || "Easypaisa";
+      const screenshot = document.getElementById("screenshot").files[0];
+
+      try {
+        const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+        const user = userCredential.user;
+
+        await addDoc(collection(db, "users"), {
+          uid: user.uid,
+          username,
+          email,
+          accountNumber,
+          accountName,
+          paymentMethod,
+          createdAt: new Date(),
+          status: "pending",
+          screenshot: screenshot.name
+        });
+
+        alert("Registration successful! Waiting for admin approval.");
+        window.location.href = "pending-approval.html";
+      } catch (error) {
+        alert("Error: " + error.message);
+      }
+    });
+  </script>
+
+</body>
+</html>
