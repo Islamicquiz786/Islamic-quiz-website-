@@ -1,20 +1,537 @@
-<!DOCTYPE html>
-<html lang="en">  
+<!DOCTYPE html>  <html lang="en">  
 <head>  
   <meta charset="UTF-8" />  
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>  
   <title>Complete Registration</title>  
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"/>
-  <link rel="stylesheet" href="css/register-style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"/>  
+  <style>  
+    * {  
+      margin: 0;  
+      padding: 0;  
+      box-sizing: border-box;  
+      font-family: "Poppins", sans-serif;  
+    }  
+    body {  
+      background: linear-gradient(to right, #c9d6ff, #e2e2e2);  
+      padding: 40px 0;  
+    }  
+    .container {  
+      width: 90%;  
+      max-width: 500px;  
+      background: white;  
+      margin: auto;  
+      padding: 2rem;  
+      border-radius: 10px;  
+      box-shadow: 0 15px 25px rgba(0,0,0,0.2);  
+    }  
+    h2 {  
+      text-align: center;  
+      margin-bottom: 20px;  
+      color: #333;  
+    }  
+    .form-group {  
+      margin-bottom: 15px;  
+    }  
+    .form-group label {  
+      display: block;  
+      margin-bottom: 5px;  
+      font-weight: 600;  
+    }  
+    .form-group input, .form-group select, .form-group button {  
+      width: 100%;  
+      padding: 10px 12px;  
+      font-size: 15px;  
+      border: 1px solid #ccc;  
+      border-radius: 6px;  
+      outline: none;  
+    }  
+    .form-group input.error {  
+      border-color: red;  
+    }  
+    .error-message {  
+      color: red;  
+      font-size: 12px;  
+      margin-top: 5px;  
+      display: none;  
+    }  
+    .btn {  
+      width: 100%;  
+      background-color: rgb(125,125,235);  
+      color: white;  
+      padding: 12px;  
+      border: none;  
+      font-size: 16px;  
+      font-weight: bold;  
+      border-radius: 6px;  
+      cursor: pointer;  
+      transition: background 0.3s ease;  
+    }  
+    .btn:hover {  
+      background-color: #07001f;  
+    }  
+    .btn.loading {  
+      position: relative;  
+      pointer-events: none;  
+    }  
+    .btn.loading:after {  
+      content: "";  
+      position: absolute;  
+      top: 50%;  
+      left: 50%;  
+      width: 20px;  
+      height: 20px;  
+      margin: -10px 0 0 -10px;  
+      border: 2px solid rgba(255,255,255,0.3);  
+      border-radius: 50%;  
+      border-top-color: #fff;  
+      animation: spin 1s ease-in-out infinite;  
+    }  
+    @keyframes spin {  
+      to { transform: rotate(360deg); }  
+    }  
+    .hidden {  
+      display: none;  
+    }  
+    .success-message {  
+      background-color: #d4edda;  
+      color: #155724;  
+      padding: 10px;  
+      border-radius: 5px;  
+      margin-bottom: 15px;  
+      text-align: center;  
+    }  
+    .payment-options {  
+      display: flex;  
+      gap: 10px;  
+      margin-top: 10px;  
+    }  
+    .payment-options button {  
+      flex: 1;  
+      padding: 8px;  
+      background-color: #f0f0f0;  
+      border: 1px solid #ddd;  
+      border-radius: 5px;  
+      cursor: pointer;  
+    }  
+    .payment-options button.active {  
+      background-color: #007bff;  
+      color: white;  
+    }  
+    .plan-section {  
+      margin: 20px 0;  
+      border: 1px solid #ddd;  
+      padding: 15px;  
+      border-radius: 8px;  
+    }  
+    .select-plan-btn {  
+      padding: 10px;  
+      border: 1px solid #ccc;  
+      border-radius: 5px;  
+      cursor: pointer;  
+      margin-bottom: 10px;  
+    }  
+    .plans-container {  
+      border: 1px solid #eee;  
+      border-radius: 5px;  
+      padding: 10px;  
+    }  
+    .plan-option {  
+      padding: 10px;  
+      margin: 5px 0;  
+      border: 1px solid #ddd;  
+      border-radius: 5px;  
+      cursor: pointer;  
+    }  
+    .plan-option:hover {  
+      background-color: #f5f5f5;  
+    }  
+    .plan-amount {  
+      font-weight: bold;  
+      color: #0077b6;  
+    }  
+    .plan-earning {  
+      font-size: 14px;  
+      color: #666;  
+    }  
+    .account-details {  
+      display: none;  
+      margin-top: 15px;  
+    }  
+  </style>  
 </head>  
-<body>
-  <div class="container">  
+<body>    <div class="container">  
     <h2>Complete Registration</h2>  
-    <div id="messageContainer"></div>
-    <form id="registrationForm">  
-      <!-- Your form content remains exactly the same -->
-      <!-- All JavaScript remains the same -->
-    </form>
-  </div>
-</body>  
-</html>
+    <div id="messageContainer"></div>  <form id="registrationForm">  
+  <!-- Step 1: Basic Information -->  
+  <div id="step1">  
+    <div class="form-group">  
+      <label for="username">Username (Max 12 letters)</label>  
+      <input type="text" id="username" placeholder="Enter your name" maxlength="12" required>  
+      <div class="error-message" id="usernameError">Username must be 12 letters or less</div>  
+    </div>  
+
+    <div class="form-group">  
+      <label for="password">Password (Max 10 characters)</label>  
+      <input type="password" id="password" placeholder="Create password" maxlength="10" required>  
+      <div class="error-message" id="passwordError">Password must be 10 characters or less</div>  
+    </div>  
+
+    <div class="form-group">  
+      <label for="confirmPassword">Confirm Password</label>  
+      <input type="password" id="confirmPassword" placeholder="Re-enter password" required>  
+      <div class="error-message" id="confirmPasswordError">Passwords do not match</div>  
+    </div>  
+
+    <div class="form-group">  
+      <label for="whatsapp">WhatsApp Number (03XXXXXXXXX)</label>  
+      <input type="text" id="whatsapp" placeholder="03XXXXXXXXX" required>  
+      <div class="error-message" id="whatsappError">Invalid WhatsApp number (must start with 03 and 11 digits)</div>  
+    </div>  
+
+    <!-- Plan Selection -->  
+    <div class="plan-section">  
+      <h3 style="text-align:center;color:#0077b6;">Select Investment Plan</h3>  
+      <div class="select-plan-btn" onclick="togglePlanSelection()">  
+        <span id="selected-plan-text">Click to select plan</span>  
+        <span style="float:right;">▼</span>  
+      </div>  
+      <div class="plans-container" id="plans-container" style="display:none;">  
+        <div class="plan-option" onclick="selectPlan('1000')">  
+          <div class="plan-amount">1000 PKR</div>  
+          <div class="plan-earning">Daily Earning: 600 PKR</div>  
+        </div>  
+        <div class="plan-option" onclick="selectPlan('1500')">  
+          <div class="plan-amount">1500 PKR</div>  
+          <div class="plan-earning">Daily Earning: 900 PKR</div>  
+        </div>  
+        <div class="plan-option" onclick="selectPlan('2000')">  
+          <div class="plan-amount">2000 PKR</div>  
+          <div class="plan-earning">Daily Earning: 1200 PKR</div>  
+        </div>  
+      </div>  
+      <input type="hidden" id="selected-plan" name="selected-plan" value="">  
+      <small id="plan-error" style="color:red;display:none;">Please select a plan</small>  
+    </div>  
+
+    <!-- Payment Method -->  
+    <div class="form-group">  
+      <label>Select Payment Method</label>  
+      <div class="payment-options">  
+        <button type="button" onclick="selectPaymentMethod('Easypaisa')">Easypaisa</button>  
+        <button type="button" onclick="selectPaymentMethod('JazzCash')">JazzCash</button>  
+      </div>  
+      <input type="hidden" id="paymentMethod" required>  
+      <small id="paymentMethodError" style="color:red;display:none;">Please select payment method</small>  
+    </div>  
+
+    <!-- Account Details (shown after payment method selection) -->  
+    <div id="accountDetails" class="account-details">  
+      <div class="form-group">  
+        <label for="accountNumber">Account Number</label>  
+        <input type="text" id="accountNumber" placeholder="03XXXXXXXXX" required>  
+      </div>  
+
+      <div class="form-group">  
+        <label for="accountName">Account Holder Name</label>  
+        <input type="text" id="accountName" placeholder="e.g. Nudba" required>  
+      </div>  
+    </div>  
+
+    <div class="form-group">  
+      <label for="screenshot">Upload Payment Screenshot</label>  
+      <input type="file" id="screenshot" accept="image/*" required>  
+    </div>  
+
+    <div class="form-group">  
+      <label for="email">Email (Gmail)</label>  
+      <input type="email" id="email" placeholder="Enter your Gmail" required>  
+      <div class="error-message" id="emailError">Please enter a valid Gmail address</div>  
+    </div>  
+
+    <div class="form-group">  
+      <button type="button" class="btn" id="submitBtn">Complete Registration</button>  
+    </div>  
+  </div>  
+
+  <!-- Step 2: Verification Message -->  
+  <div id="step2" class="hidden">  
+    <div class="success-message">  
+      ✅ Your registration has been completed<br>  
+      Your account will be activated after admin approval<br>  
+      Please wait, you will be notified shortly  
+    </div>  
+    <div class="form-group">  
+      <button type="button" class="btn" onclick="window.location.href='index.html'">Back to Home</button>  
+    </div>  
+  </div>  
+</form>
+
+  </div>    <script type="module">  
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.11.1/firebase-app.js";  
+    import {   
+      getAuth,   
+      createUserWithEmailAndPassword,   
+      sendEmailVerification   
+    } from "https://www.gstatic.com/firebasejs/10.11.1/firebase-auth.js";  
+    import {   
+      getFirestore,   
+      collection,   
+      addDoc,  
+      query,  
+      where,  
+      getDocs  
+    } from "https://www.gstatic.com/firebasejs/10.11.1/firebase-firestore.js";  
+  
+    // Firebase Configuration  
+    const firebaseConfig = {  
+      apiKey: "AIzaSyCOTwS-H0NQmj6-jDNAlFzu4Yv81f86tTU",  
+      authDomain: "islamic-quiz-fe72f.firebaseapp.com",  
+      databaseURL: "https://islamic-quiz-fe72f-default-rtdb.firebaseio.com",  
+      projectId: "islamic-quiz-fe72f",  
+      storageBucket: "islamic-quiz-fe72f.firebasestorage.app",  
+      messagingSenderId: "523541510921",  
+      appId: "1:523541510921:web:b78005ef3bc1f1a14a31d8"  
+    };  
+  
+    // Initialize Firebase  
+    const app = initializeApp(firebaseConfig);  
+    const auth = getAuth(app);  
+    const db = getFirestore(app);  
+  
+    // DOM Elements  
+    const registrationForm = document.getElementById('registrationForm');  
+    const step1 = document.getElementById('step1');  
+    const step2 = document.getElementById('step2');  
+    const submitBtn = document.getElementById('submitBtn');  
+    const messageContainer = document.getElementById('messageContainer');  
+    const accountDetails = document.getElementById('accountDetails');  
+  
+    // Error Elements  
+    const usernameError = document.getElementById('usernameError');  
+    const emailError = document.getElementById('emailError');  
+    const passwordError = document.getElementById('passwordError');  
+    const confirmPasswordError = document.getElementById('confirmPasswordError');  
+    const whatsappError = document.getElementById('whatsappError');  
+    const planError = document.getElementById('plan-error');  
+    const paymentMethodError = document.getElementById('paymentMethodError');  
+  
+    // Toggle plan selection  
+    function togglePlanSelection() {  
+      const plansContainer = document.getElementById('plans-container');  
+      plansContainer.style.display = plansContainer.style.display === 'none' ? 'block' : 'none';  
+    }  
+  
+    // Select plan  
+    function selectPlan(amount) {  
+      document.getElementById('selected-plan').value = amount;  
+      document.getElementById('selected-plan-text').textContent = amount + ' PKR Plan';  
+      document.getElementById('plans-container').style.display = 'none';  
+      planError.style.display = 'none';  
+    }  
+  
+    // Select payment method  
+    function selectPaymentMethod(method) {  
+      document.getElementById('paymentMethod').value = method;  
+      const buttons = document.querySelectorAll('.payment-options button');  
+      buttons.forEach(btn => {  
+        btn.classList.remove('active');  
+        if (btn.textContent === method) {  
+          btn.classList.add('active');  
+        }  
+      });  
+      paymentMethodError.style.display = 'none';  
+      accountDetails.style.display = 'block';  
+    }  
+  
+    // Show error message  
+    function showError(input, errorElement, message) {  
+      input.classList.add('error');  
+      errorElement.textContent = message;  
+      errorElement.style.display = 'block';  
+    }  
+  
+    // Hide error message  
+    function hideError(input, errorElement) {  
+      input.classList.remove('error');  
+      errorElement.style.display = 'none';  
+    }  
+  
+    // Show success message  
+    function showSuccess(message) {  
+      messageContainer.innerHTML = `<div class="success-message">${message}</div>`;  
+    }  
+  
+    // Show loading state  
+    function setLoading(button, isLoading) {  
+      if (isLoading) {  
+        button.classList.add('loading');  
+        button.disabled = true;  
+      } else {  
+        button.classList.remove('loading');  
+        button.disabled = false;  
+      }  
+    }  
+  
+    // Validate username  
+    function validateUsername() {  
+      const username = document.getElementById('username').value;  
+      if (username.length > 12) {  
+        showError(document.getElementById('username'), usernameError, 'Username must be 12 letters or less');  
+        return false;  
+      }  
+      hideError(document.getElementById('username'), usernameError);  
+      return true;  
+    }  
+  
+    // Validate email  
+    function validateEmail() {  
+      const email = document.getElementById('email').value;  
+      if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {  
+        showError(document.getElementById('email'), emailError, 'Please enter a valid email address');  
+        return false;  
+      }  
+      hideError(document.getElementById('email'), emailError);  
+      return true;  
+    }  
+  
+    // Validate password  
+    function validatePassword() {  
+      const password = document.getElementById('password').value;  
+      if (password.length > 10) {  
+        showError(document.getElementById('password'), passwordError, 'Password must be 10 characters or less');  
+        return false;  
+      }  
+      hideError(document.getElementById('password'), passwordError);  
+      return true;  
+    }  
+  
+    // Validate confirm password  
+    function validateConfirmPassword() {  
+      const password = document.getElementById('password').value;  
+      const confirmPassword = document.getElementById('confirmPassword').value;  
+        
+      if (password !== confirmPassword) {  
+        showError(document.getElementById('confirmPassword'), confirmPasswordError, 'Passwords do not match');  
+        return false;  
+      }  
+      hideError(document.getElementById('confirmPassword'), confirmPasswordError);  
+      return true;  
+    }  
+  
+    // Validate WhatsApp number  
+    function validateWhatsApp() {  
+      const whatsapp = document.getElementById('whatsapp').value;  
+      if (!/^03\d{9}$/.test(whatsapp)) {  
+        showError(document.getElementById('whatsapp'), whatsappError, 'Invalid WhatsApp number (must start with 03 and 11 digits)');  
+        return false;  
+      }  
+      hideError(document.getElementById('whatsapp'), whatsappError);  
+      return true;  
+    }  
+  
+    // Validate plan selection  
+    function validatePlan() {  
+      const plan = document.getElementById('selected-plan').value;  
+      if (!plan) {  
+        planError.style.display = 'block';  
+        return false;  
+      }  
+      planError.style.display = 'none';  
+      return true;  
+    }  
+  
+    // Validate payment method  
+    function validatePaymentMethod() {  
+      const method = document.getElementById('paymentMethod').value;  
+      if (!method) {  
+        paymentMethodError.style.display = 'block';  
+        return false;  
+      }  
+      paymentMethodError.style.display = 'none';  
+      return true;  
+    }  
+  
+    // Form submission  
+    submitBtn.addEventListener('click', async () => {  
+      if (!validateUsername() || !validatePassword() ||   
+          !validateConfirmPassword() || !validateWhatsApp() ||   
+          !validateEmail() || !validatePlan() || !validatePaymentMethod()) {  
+        return;  
+      }  
+  
+      const email = document.getElementById('email').value;  
+      const password = document.getElementById('password').value;  
+      const username = document.getElementById('username').value;  
+      const whatsapp = document.getElementById('whatsapp').value;  
+      const plan = document.getElementById('selected-plan').value;  
+      const paymentMethod = document.getElementById('paymentMethod').value;  
+      const accountNumber = document.getElementById('accountNumber').value;  
+      const accountName = document.getElementById('accountName').value;  
+      const screenshot = document.getElementById('screenshot').files[0];  
+  
+      try {  
+        setLoading(submitBtn, true);  
+          
+        // Check if username already exists  
+        const usersRef = collection(db, "users");  
+        const q = query(usersRef, where("username", "==", username));  
+        const querySnapshot = await getDocs(q);  
+          
+        if (!querySnapshot.empty) {  
+          showError(document.getElementById('username'), usernameError, 'This username is already taken');  
+          setLoading(submitBtn, false);  
+          return;  
+        }  
+  
+        // Create user  
+        const userCredential = await createUserWithEmailAndPassword(auth, email, password);  
+        const user = userCredential.user;  
+  
+        // Send verification email  
+        await sendEmailVerification(user);  
+  
+        // Save user data to Firestore  
+        await addDoc(collection(db, "users"), {  
+          uid: user.uid,  
+          username,  
+          email,  
+          whatsapp,  
+          plan,  
+          paymentMethod,  
+          accountNumber,  
+          accountName,  
+          status: "pending",  
+          registrationDate: new Date(),  
+          screenshot: screenshot.name,  
+          emailVerified: false  
+        });  
+  
+        // Show success message and hide form  
+        step1.classList.add('hidden');  
+        step2.classList.remove('hidden');  
+          
+      } catch (error) {  
+        let errorMessage = 'Registration failed';  
+          
+        if (error.code === 'auth/email-already-in-use') {  
+          errorMessage = 'This email is already registered';  
+          showError(document.getElementById('email'), emailError, errorMessage);  
+        } else if (error.code === 'auth/weak-password') {  
+          errorMessage = 'Password should be at least 6 characters';  
+          showError(document.getElementById('password'), passwordError, errorMessage);  
+        }  
+          
+        showSuccess(`❌ ${errorMessage}`);  
+      } finally {  
+        setLoading(submitBtn, false);  
+      }  
+    });  
+  
+    // Real-time validation  
+    document.getElementById('username').addEventListener('input', validateUsername);  
+    document.getElementById('email').addEventListener('input', validateEmail);  
+    document.getElementById('password').addEventListener('input', validatePassword);  
+    document.getElementById('confirmPassword').addEventListener('input', validateConfirmPassword);  
+    document.getElementById('whatsapp').addEventListener('input', validateWhatsApp);  
+  </script>  </body>  
+        </html>
