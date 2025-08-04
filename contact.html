@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Contact Admin - Islamic Quiz</title>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@600&display=swap" rel="stylesheet">
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Orbitron', sans-serif;
+      background: url('https://github.com/Islamicquiz786/Sahil-Images-/raw/main/ee4300b6-1a52-426c-97e2-634d0ca398a7.jpeg') no-repeat center center fixed;
+      background-size: cover;
+      color: #00ffe5;
+      backdrop-filter: blur(6px);
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.7);
+      z-index: -1;
+    }
+
+    .contact-container {
+      max-width: 500px;
+      margin: 20px;
+      padding: 40px;
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      border-radius: 20px;
+      box-shadow: 0 0 25px #00ffe5;
+      animation: glow 4s infinite alternate;
+      text-align: center;
+    }
+
+    @keyframes glow {
+      0% {
+        box-shadow: 0 0 15px #00ffe5;
+      }
+      100% {
+        box-shadow: 0 0 30px #00ffe5, 0 0 60px #00ffe5;
+      }
+    }
+
+    h2 {
+      text-align: center;
+      margin-bottom: 30px;
+      color: #00ffe5;
+      text-shadow: 0 0 10px #00ffe5;
+      font-size: 28px;
+    }
+
+    p {
+      font-size: 18px;
+      line-height: 1.7;
+      color: #ffffffd9;
+      margin-bottom: 25px;
+    }
+
+    .whatsapp-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      background-color: #25D366;
+      color: white;
+      padding: 15px 30px;
+      border-radius: 50px;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 18px;
+      transition: all 0.3s ease;
+      box-shadow: 0 0 15px rgba(37, 211, 102, 0.7);
+      margin: 20px 0;
+      border: none;
+      font-family: 'Orbitron', sans-serif;
+    }
+
+    .whatsapp-btn:hover {
+      background-color: #128C7E;
+      transform: translateY(-3px);
+      box-shadow: 0 0 25px rgba(37, 211, 102, 0.9);
+    }
+
+    .whatsapp-btn img {
+      width: 28px;
+      height: 28px;
+      margin-right: 12px;
+    }
+
+    .contact-info {
+      margin-top: 30px;
+      padding-top: 20px;
+      border-top: 1px solid rgba(255, 255, 255, 0.2);
+    }
+
+    .contact-info p {
+      margin: 10px 0;
+      color: #ffffffd9;
+    }
+
+    .highlight {
+      color: #39ff14;
+      text-shadow: 0 0 8px #39ff14;
+    }
+
+    .thank-you {
+      margin-top: 25px;
+      font-style: italic;
+      color: #00ffe5;
+      text-shadow: 0 0 5px #00ffe5;
+    }
+  </style>
+</head>
+<body>
+  <div class="overlay"></div>
+  <div class="contact-container">
+    <h2>📩 ADMIN SUPPORT</h2>
+    <p>For any queries or assistance, contact our <span class="highlight">verified admin team</span> directly.</p>
+    
+    <a href="https://wa.me/923481326140?text=Salam%20Admin%2C%20I%20need%20help%20with%20Islamic%20Quiz." 
+       class="whatsapp-btn" 
+       target="_blank">
+      <img src="https://cdn-icons-png.flaticon.com/512/3670/3670051.png" alt="WhatsApp">
+      WHATSAPP ADMIN
+    </a>
+    
+    <div class="contact-info">
+      <p><span class="highlight">📞 Contact:</span> +92 348 1326140</p>
+      <p><span class="highlight">⏰ Response Time:</span> 24-48 Hours</p>
+    </div>
+    
+    <p class="thank-you">JazakAllah Khair for your cooperation!</p>
+  </div>
+</body>
+</html>

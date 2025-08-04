@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Task - Islamic Quiz</title>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@600&display=swap" rel="stylesheet">
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Orbitron', sans-serif;
+      background: url('https://github.com/Islamicquiz786/Sahil-Images-/raw/main/ee4300b6-1a52-426c-97e2-634d0ca398a7.jpeg') no-repeat center center fixed;
+      background-size: cover;
+      color: #00ffe5;
+      backdrop-filter: blur(6px);
+    }
+
+    .overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.7);
+      z-index: -1;
+    }
+
+    .container {
+      max-width: 850px;
+      margin: 60px auto;
+      padding: 40px;
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      border-radius: 20px;
+      box-shadow: 0 0 25px #00ffe5;
+      animation: glow 4s infinite alternate;
+    }
+
+    @keyframes glow {
+      0% {
+        box-shadow: 0 0 15px #00ffe5;
+      }
+      100% {
+        box-shadow: 0 0 30px #00ffe5, 0 0 60px #00ffe5;
+      }
+    }
+
+    h1 {
+      text-align: center;
+      margin-bottom: 20px;
+      color: #00ffe5;
+      text-shadow: 0 0 10px #00ffe5;
+    }
+
+    h2 {
+      margin-top: 30px;
+      color: #39ff14;
+      text-shadow: 0 0 8px #39ff14;
+    }
+
+    ul {
+      padding-left: 20px;
+      color: #ffffffd9;
+    }
+
+    ul li {
+      margin-bottom: 10px;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 20px;
+      font-size: 16px;
+      color: #ffffffd9;
+      background-color: rgba(255, 255, 255, 0.05);
+    }
+
+    th, td {
+      padding: 12px 15px;
+      border: 1px solid #00ffe599;
+      text-align: center;
+    }
+
+    th {
+      background-color: rgba(0, 255, 229, 0.2);
+      color: #00ffe5;
+      text-shadow: 0 0 5px #00ffe5;
+    }
+
+    .note {
+      margin-top: 20px;
+      font-style: italic;
+      color: #ffffffbb;
+    }
+
+    .highlight {
+      color: #39ff14;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+  <div class="overlay"></div>
+  <div class="container">
+    <h1>📋 Task Rules & Guidelines</h1>
+
+    <h2>1. Daily Requirements</h2>
+    <ul>
+      <li>✅ Each user must solve <span class="highlight">2 questions daily</span></li>
+      <li>✅ Must invite <span class="highlight">2 new members every day</span></li>
+    </ul>
+
+    <h2>2. Earning Plans</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>Plan</th>
+          <th>Daily Earnings</th>
+          <th>Referral Bonus (Per Member)</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>1000</td>
+          <td>600</td>
+          <td>300</td>
+        </tr>
+        <tr>
+          <td>1500</td>
+          <td>900</td>
+          <td>600</td>
+        </tr>
+        <tr>
+          <td>2000</td>
+          <td>1200</td>
+          <td>900</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h2>3. Withdrawal Policy</h2>
+    <ul>
+      <li>💸 EasyPaisa & JazzCash withdrawals are available anytime</li>
+      <li>🕔 <span class="highlight">Sunday withdrawals</span> are only approved in the evening</li>
+      <li>🕐 <span class="highlight">All other days</span>, withdrawals can be processed at any time</li>
+    </ul>
+
+    <p class="note">Maintain consistency in tasks for smooth earnings. <strong class="highlight">Happy earning! 💰</strong></p>
+  </div>
+</body>
+</html>
