@@ -1,11 +1,10 @@
-
 <!doctype html>
 <html lang="en">
- <head>
+<head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Login — Islamic Quiz</title>
-  <link href="https://fonts.googleapis.com/css2?family=Poppins&amp;display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
   <style>
     body {
       font-family: 'Poppins', sans-serif;
@@ -67,19 +66,84 @@
       font-weight: 500;
     }
 
+    .error-message {
+      color: #e63946;
+      text-align: center;
+      margin-top: 10px;
+      font-size: 14px;
+    }
+
     @media (max-width: 500px) {
       .container {
         padding: 25px 20px;
       }
     }
   </style>
- </head>
- <body>
+</head>
+<body>
   <div class="container">
-   <h2>Login to Islamic Quiz</h2><input type="email" placeholder="Enter Gmail" required> <input type="password" placeholder="Enter Password" required> <button onclick="alert('Login logic to be added')">Login</button>
-   <div class="link">
-    Don't have an account? <a href="register.html">Register</a>
-   </div>
+    <h2>Login to Islamic Quiz</h2>
+    <form id="loginForm">
+      <input type="email" id="email" placeholder="Enter Email" required>
+      <input type="password" id="password" placeholder="Enter Password" required>
+      <button type="submit">Login</button>
+      <div class="error-message" id="firebaseError"></div>
+    </form>
+    <div class="link">
+      Don't have an account? <a href="register.html">Register</a>
+    </div>
   </div>
- </body>
+
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+    import { getAuth, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyBasuAzvAlaVAayEdDU9bB9wvUzG7fVuAg",
+      authDomain: "islamic-quiz-website.firebaseapp.com",
+      projectId: "islamic-quiz-website",
+      storageBucket: "islamic-quiz-website.appspot.com",
+      messagingSenderId: "517259698394",
+      appId: "1:517259698394:web:36094d03187da81685e3"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+
+    document.getElementById("loginForm").addEventListener("submit", async (e) => {
+      e.preventDefault();
+      const email = document.getElementById("email").value;
+      const password = document.getElementById("password").value;
+      const errorDiv = document.getElementById("firebaseError");
+      
+      errorDiv.textContent = "";
+
+      try {
+        const userCredential = await signInWithEmailAndPassword(auth, email, password);
+        const user = userCredential.user;
+        
+        if (user.uid === "3we75n5JccPIakzzavWVcpYyW5f1") {
+          window.location.href = "dashboard.html";
+        } else {
+          await auth.signOut();
+          errorDiv.textContent = "You don't have admin privileges!";
+        }
+      } catch (error) {
+        let errorMessage = "Login failed!";
+        switch (error.code) {
+          case "auth/user-not-found":
+            errorMessage = "No account found with this email";
+            break;
+          case "auth/wrong-password":
+            errorMessage = "Incorrect password";
+            break;
+          case "auth/too-many-requests":
+            errorMessage = "Account temporarily locked due to many failed attempts";
+            break;
+        }
+        errorDiv.textContent = errorMessage;
+      }
+    });
+  </script>
+</body>
 </html>
