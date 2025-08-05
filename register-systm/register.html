@@ -1,0 +1,78 @@
+<!DOCTYP<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Islamic Quiz Earning Platform - Register</title>
+  <link rel="stylesheet" href="styles.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@600&display=swap" rel="stylesheet">
+</head>
+<body>
+  <div class="overlay"></div>
+  <div class="register-box">
+    <h2>Islamic Quiz Earning Platform</h2>
+    <div id="successMessage" class="success-message"></div>
+    <form id="registerForm">
+      <label for="username">Username (Max 10 Characters)</label>
+      <input type="text" id="username" maxlength="10" required placeholder="Enter username">
+      <div id="usernameError" class="error-message"></div>
+
+      <label for="whatsapp">WhatsApp Number (03XXXXXXXXX)</label>
+      <input type="text" id="whatsapp" required placeholder="03XXXXXXXXX" inputmode="numeric">
+      <div id="whatsappError" class="error-message"></div>
+
+      <label for="plan">Select Investment Plan</label>
+      <select id="plan" required>
+        <option value="">Select Plan</option>
+        <option value="1000">Plan 1000 → Daily 600 | Referral: 300/member</option>
+        <option value="1500">Plan 1500 → Daily 900 | Referral: 600/member</option>
+        <option value="2000">Plan 2000 → Daily 1200 | Referral: 900/member</option>
+      </select>
+
+      <label for="payment">Payment Method</label>
+      <select id="payment" required>
+        <option value="">Select Payment Method</option>
+        <option value="easypaisa">Easypaisa</option>
+        <option value="jazzcash">JazzCash</option>
+      </select>
+
+      <div id="paymentDetails" class="payment-details">
+        <label for="accountNumber">Account Number (03XXXXXXXXX)</label>
+        <input type="text" id="accountNumber" placeholder="Enter account number" inputmode="numeric">
+
+        <label for="accountName">Account Holder Name</label>
+        <input type="text" id="accountName" placeholder="e.g. Nudba">
+
+        <label for="screenshot">Upload Payment Screenshot</label>
+        <input type="file" id="screenshot" accept="image/*">
+      </div>
+
+      <label for="password">Password (Max 10 Characters)</label>
+      <input type="password" id="password" maxlength="10" required placeholder="Enter password">
+      <div id="passwordError" class="error-message"></div>
+
+      <label for="confirmPassword">Confirm Password</label>
+      <input type="password" id="confirmPassword" maxlength="10" required placeholder="Re-enter password">
+      <div id="confirmError" class="error-message"></div>
+
+      <label for="email">Email (Gmail)</label>
+      <input type="email" id="email" required placeholder="Enter your Gmail">
+      <div id="emailError" class="error-message"></div>
+
+      <button type="submit">Complete Registration</button>
+    </form>
+    <div class="login-link">
+      Already have an account? <a href="index.html">Login Here</a>
+    </div>
+    <div class="islamic-verse">
+      ﴿ وَقُلْ رَبِّ زِدْنِي عِلْمًا ﴾<br>
+      اور دعا کرو: اے میرے رب! میرے علم میں اضافہ فرما۔<br>
+      (سورۃ طٰہٰ - آیت 114)
+    </div>
+  </div>
+
+  <script type="module" src="js/register.js"></script>
+</body>
+</html>
