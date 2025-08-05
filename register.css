@@ -1,0 +1,181 @@
+* * {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Orbitron', sans-serif;
+}
+
+body, html {
+  height: 100%;
+  width: 100%;
+  overflow-x: hidden;
+}
+
+body {
+  min-height: 100vh;
+  background: url('https://github.com/Islamicquiz786/Sahil-Images-/raw/main/ee4300b6-1a52-426c-97e2-634d0ca398a7.jpeg') no-repeat center center fixed;
+  background-size: cover;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+}
+
+.overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.65);
+  backdrop-filter: blur(10px);
+  z-index: 1;
+}
+
+.register-box {
+  position: relative;
+  z-index: 10;
+  background: rgba(255, 255, 255, 0.05);
+  border: 2px solid rgba(255, 255, 255, 0.2);
+  border-radius: 20px;
+  padding: 25px;
+  width: 95%;
+  max-width: 400px;
+  box-shadow: 0 0 25px #00ffe5;
+  animation: glow 3s infinite alternate;
+  margin: 20px 0;
+}
+
+@keyframes glow {
+  from {
+    box-shadow: 0 0 15px #00ffe5;
+  }
+  to {
+    box-shadow: 0 0 30px #00ffe5, 0 0 60px #00ffe5;
+  }
+}
+
+.register-box h2 {
+  color: #00ffe5;
+  text-align: center;
+  margin-bottom: 20px;
+  text-shadow: 0 0 10px #00ffe5;
+  font-size: 1.5rem;
+}
+
+.register-box input,
+.register-box select {
+  width: 100%;
+  margin-bottom: 15px;
+  padding: 12px;
+  border: none;
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.1);
+  color: #fff;
+  font-size: 14px;
+  transition: 0.3s;
+}
+
+.register-box input::placeholder {
+  color: #ccc;
+}
+
+.register-box input:focus,
+.register-box select:focus {
+  outline: none;
+  background: rgba(255, 255, 255, 0.2);
+  box-shadow: 0 0 10px #00ffe5;
+}
+
+.register-box button {
+  width: 100%;
+  padding: 12px;
+  font-size: 16px;
+  background: #00ffe5;
+  color: #000;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  box-shadow: 0 0 15px #00ffe5, 0 0 40px #00ffe5 inset;
+  transition: 0.3s ease-in-out;
+  margin-top: 10px;
+}
+
+.register-box button:hover {
+  background: #000;
+  color: #00ffe5;
+  box-shadow: 0 0 20px #00ffe5, 0 0 60px #00ffe5 inset;
+}
+
+.register-box label {
+  color: #00ffe5;
+  font-size: 14px;
+  margin-bottom: 6px;
+  display: block;
+  text-shadow: 0 0 5px #00ffe5;
+}
+
+.error-message {
+  color: #ff4b4b;
+  font-size: 12px;
+  text-align: center;
+  margin-top: -10px;
+  margin-bottom: 10px;
+  text-shadow: 0 0 5px #ff0000;
+  display: none;
+}
+
+.success-message {
+  color: #39ff14;
+  text-align: center;
+  margin-bottom: 15px;
+  text-shadow: 0 0 5px #39ff14;
+  display: none;
+  font-size: 14px;
+  line-height: 1.4;
+}
+
+.login-link {
+  text-align: center;
+  margin-top: 20px;
+  font-size: 14px;
+  color: #00ffe5;
+}
+
+.login-link a {
+  color: #39ff14;
+  font-weight: bold;
+  text-decoration: none;
+  text-shadow: 0 0 5px #39ff14;
+}
+
+.payment-details {
+  display: none;
+  margin-bottom: 15px;
+  padding: 15px;
+  background: rgba(0, 0, 0, 0.2);
+  border-radius: 8px;
+  border-left: 3px solid #00ffe5;
+}
+
+.islamic-verse {
+  text-align: center;
+  color: #00ffe5;
+  margin-top: 20px;
+  font-size: 14px;
+  line-height: 1.6;
+  text-shadow: 0 0 5px #00ffe5;
+}
+
+@media (max-width: 480px) {
+  .register-box {
+    padding: 20px 15px;
+  }
+
+  .register-box h2 {
+    font-size: 1.3rem;
+  }
+
+  .register-box input,
+  .register-box select {
+    padding: 10px;
+    font-size: 13px;
+  }
+}
