@@ -1,0 +1,148 @@
+<!DOCT<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Dashboard - Islamic Quiz</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background: #f2fff2;
+      color: #222;
+    }
+    header {
+      background: #0a6d2c;
+      color: white;
+      padding: 20px;
+      text-align: center;
+    }
+    .container {
+      padding: 20px;
+    }
+    .feature {
+      background: white;
+      margin: 10px 0;
+      padding: 15px;
+      border-radius: 10px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    }
+    .feature h3 {
+      margin: 0 0 5px 0;
+      color: #0a6d2c;
+    }
+    .feature p {
+      margin: 0;
+    }
+    a {
+      color: #0a6d2c;
+      text-decoration: none;
+    }
+    footer {
+      text-align: center;
+      padding: 10px;
+      background: #0a6d2c;
+      color: white;
+      margin-top: 20px;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>🌙 Islamic Quiz - Earn & Learn Platform</h1>
+    <p>Welcome! This is your personal dashboard</p>
+  </header>
+
+  <div class="container">
+
+    <div class="feature">
+      <h3>1️⃣ Daily Islamic Quiz</h3>
+      <p>Answer daily Islamic questions and earn rewards.</p>
+    </div>
+
+    <div class="feature">
+      <h3>2️⃣ Daily Earnings</h3>
+      <p>Receive daily income based on your plan and referrals.</p>
+    </div>
+
+    <div class="feature">
+      <h3>3️⃣ Referral System</h3>
+      <p>Invite at least 2 members daily and earn bonus commission.</p>
+    </div>
+
+    <div class="feature">
+      <h3>4️⃣ Prayer (Namaz) Guide</h3>
+      <p>Learn how to perform Wudu, Salah, and recitations properly.</p>
+    </div>
+
+    <div class="feature">
+      <h3>5️⃣ Help & Support</h3>
+      <p><a href="https://wa.me/923481326140" target="_blank">📞 Contact Admin via WhatsApp</a></p>
+    </div>
+
+    <div class="feature">
+      <h3>6️⃣ User Profile</h3>
+      <p>Check your registration info, selected plan, and total earnings.</p>
+    </div>
+
+    <div class="feature">
+      <h3>7️⃣ Payment Status</h3>
+      <p>View approval status of your payment screenshot.</p>
+    </div>
+
+    <div class="feature">
+      <h3>8️⃣ Admin Notifications</h3>
+      <p>Check daily updates and quiz questions by the admin.</p>
+    </div>
+
+    <div class="feature">
+      <h3>9️⃣ Quran & Hadith</h3>
+      <p>
+        <a href="https://quran.com" target="_blank">📖 Read Quran (quran.com)</a><br>
+        <a href="https://sunnah.com" target="_blank">📜 Read Hadith (sunnah.com)</a>
+      </p>
+    </div>
+
+    <div class="feature">
+      <h3>🔒 Logout</h3>
+      <p><a href="#" onclick="logout()">Click here to logout from your account</a></p>
+    </div>
+
+  </div>
+
+  <footer>
+    &copy; 2025 Islamic Quiz — Developed by MR Sahil
+  </footer>
+
+  <!-- Logout Function -->
+  <script>
+    function logout() {
+      alert("You have been successfully logged out.");
+      // Optionally redirect:
+      // window.location.href = 'index.html';
+    }
+  </script>
+
+  <!-- Firebase SDK Integration -->
+  <script type="module">
+    // Import Firebase App
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.5.0/firebase-app.js";
+
+    // Firebase Configuration
+    const firebaseConfig = {
+      apiKey: "AIzaSyBasuAzvAlaVAayEdDU9bB9wvUzG7fVuAg",
+      authDomain: "islamic-quiz-website.firebaseapp.com",
+      databaseURL: "https://islamic-quiz-website-default-rtdb.firebaseio.com",
+      projectId: "islamic-quiz-website",
+      storageBucket: "islamic-quiz-website.appspot.com",
+      messagingSenderId: "517259698394",
+      appId: "1:517259698394:web:36094d8d03187da81685e3"
+    };
+
+    // Initialize Firebase
+    const app = initializeApp(firebaseConfig);
+  </script>
+
+</body>
+</html>
