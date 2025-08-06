@@ -174,13 +174,28 @@
       text-shadow: 0 0 5px #00ffe5;  
     }  
       
-    .processing-message {
+    .loading {
       color: #00ffe5;
       text-align: center;
       margin: 15px 0;
       text-shadow: 0 0 5px #00ffe5;
       display: none;
       font-size: 14px;
+    }
+    
+    .alert {
+      padding: 15px;
+      margin-bottom: 20px;
+      border-radius: 8px;
+      text-align: center;
+      display: none;
+    }
+    
+    .alert.success {
+      background: rgba(57, 255, 20, 0.1);
+      border-left: 3px solid #39ff14;
+      color: #39ff14;
+      text-shadow: 0 0 5px #39ff14;
     }
       
     @media (max-width: 480px) {  
@@ -205,9 +220,10 @@
   <div class="register-box">    
     <h2>Complete Registration</h2>    
     <div id="successMessage" class="success-message"></div>    
+    <div id="verificationAlert" class="alert success"></div>
     <form id="completeForm">    
-      <label for="password">Password (5-10 Characters)</label>    
-      <input type="password" id="password" minlength="5" maxlength="10" required placeholder="Enter password (5-10 characters)">    
+      <label for="password">Password (1-10 Characters)</label>    
+      <input type="password" id="password" minlength="1" maxlength="10" required placeholder="Enter password (1-10 characters)">    
       <div id="passwordError" class="error-message"></div>    
       
       <label for="email">Email (Gmail)</label>    
@@ -215,6 +231,7 @@
       <div id="emailError" class="error-message"></div>    
       
       <button type="submit">Complete Registration</button>    
+      <div id="loading" class="loading">⏳ Please wait... Submitting your registration.</div>
     </form>    
     <div class="back-link">    
       <a href="register.html">← Back to Previous Step</a>    
@@ -265,11 +282,31 @@
         window.location.href = "register.html";
       }
 
-      // Real-time validation for password (5-10 characters)  
+      // Check verification status
+      onAuthStateChanged(auth, (user) => {
+        if (user) {
+          if (user.emailVerified) {
+            document.getElementById("completeForm").style.display = "none";
+            document.getElementById("verificationAlert").innerHTML = `
+              🎉 Your registration has been submitted successfully! <br>
+              ✅ Admin will verify your details soon. Once approved, your account will be activated.<br>
+              📩 Please check your Gmail for any confirmation message.
+            `;
+            document.getElementById("verificationAlert").style.display = "block";
+            
+            // Redirect to login after 30 seconds
+            setTimeout(() => {
+              window.location.href = "index.html";
+            }, 30000);
+          }
+        }
+      });
+
+      // Real-time validation for password (1-10 characters)  
       document.getElementById('password').addEventListener('input', function(e) {  
         if (this.value.length > 10) {  
           this.value = this.value.slice(0, 10);  
-          document.getElementById('passwordError').textContent = 'Password must be between 5-10 characters';  
+          document.getElementById('passwordError').textContent = 'Password must be 1-10 characters';  
           document.getElementById('passwordError').style.display = 'block';  
         } else {  
           document.getElementById('passwordError').style.display = 'none';  
@@ -291,25 +328,17 @@
         const registrationData = JSON.parse(localStorage.getItem('registrationData'));    
         const screenshotBase64 = localStorage.getItem('paymentScreenshot');    
             
-        // Validate password (5-10 characters)  
-        if (password.length < 5 || password.length > 10) {  
-          document.getElementById("passwordError").textContent = "Password must be between 5-10 characters";  
+        // Validate password (1-10 characters)  
+        if (password.length < 1 || password.length > 10) {  
+          document.getElementById("passwordError").textContent = "Password must be 1-10 characters";  
           document.getElementById("passwordError").style.display = "block";  
           return;  
         }  
             
         try {    
-          // Show processing message
-          const processingMsg = document.createElement('div');
-          processingMsg.className = 'processing-message';
-          processingMsg.textContent = 'Processing your registration... Please wait.';
-          processingMsg.style.display = 'block';
-          document.getElementById("completeForm").appendChild(processingMsg);
-          
-          // Disable submit button during processing
-          const submitBtn = document.querySelector('#completeForm button[type="submit"]');
-          submitBtn.disabled = true;
-          submitBtn.textContent = 'Processing...';
+          // Show loading message
+          document.getElementById('loading').style.display = 'block';
+          document.querySelector('#completeForm button[type="submit"]').style.display = 'none';
           
           // Create user with Firebase Auth    
           const userCredential = await createUserWithEmailAndPassword(auth, email, password);    
@@ -343,28 +372,17 @@
             emailVerified: false  
           });    
               
-          // Show success message    
-          document.getElementById("successMessage").innerHTML = `  
-            <h3>📩 Verification Email Sent!</h3>  
-            <p>A verification link has been sent to your email (${email}).</p>  
-            <p>Please check your inbox and verify your email address to complete registration.</p>  
-            <p><strong>Note:</strong> Your account will be fully activated after admin verification.</p>  
-            <p>You will be redirected to login page shortly...</p>  
-          `;    
-          document.getElementById("successMessage").style.display = "block";    
+          // Show verification message    
           document.getElementById("completeForm").style.display = "none";    
-              
-          // Remove processing message
-          processingMsg.remove();
+          document.getElementById("verificationAlert").innerHTML = `
+            📩 Verification link sent! Please check your email (inbox/spam). <br>
+            ✅ After verification, your account will be activated.
+          `;
+          document.getElementById("verificationAlert").style.display = "block";
               
           // Clear stored data
           localStorage.removeItem('registrationData');
           localStorage.removeItem('paymentScreenshot');
-              
-          // Redirect to login page after 1 minute
-          setTimeout(() => {
-            window.location.href = "index.html";
-          }, 60000);
               
         } catch (error) {    
           console.error("Registration error:", error);  
@@ -391,13 +409,8 @@
           }    
           
           // Re-enable submit button if error occurs
-          const submitBtn = document.querySelector('#completeForm button[type="submit"]');
-          submitBtn.disabled = false;
-          submitBtn.textContent = 'Complete Registration';
-          
-          // Remove processing message
-          const processingMsg = document.querySelector('.processing-message');
-          if (processingMsg) processingMsg.remove();
+          document.getElementById('loading').style.display = 'none';
+          document.querySelector('#completeForm button[type="submit"]').style.display = 'block';
         }    
       });    
 
