@@ -398,10 +398,10 @@
           const userCredential = await createUserWithEmailAndPassword(auth, email, password);    
           const user = userCredential.user;    
               
-          // Send email verification with proper settings
+          // Send email verification with GitHub Pages URL
           await sendEmailVerification(user, {
             handleCodeInApp: true,
-            url: window.location.origin + window.location.pathname
+            url: "https://islamicquiz786.github.io/Islamic-quiz-website-/page.html"
           });  
               
           // Upload payment screenshot if exists    
@@ -448,7 +448,7 @@
               document.getElementById('resendLink').textContent = 'Sending...';
               await sendEmailVerification(user, {
                 handleCodeInApp: true,
-                url: window.location.origin + window.location.pathname
+                url: "https://islamicquiz786.github.io/Islamic-quiz-website-/page.html"
               });
               document.getElementById('resendLink').textContent = 'Verification resent! Check your email.';
             } catch (error) {
